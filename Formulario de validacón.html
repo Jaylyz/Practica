@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>  <!-- Aquí empieza la cabecera -->
+        <link rel="stylesheet" href="estilo.formulario.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courgette">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+        <meta charset="utf-8">
+        <title>Práctica de validación</title>
+    </head> <!-- Aqui termina la cabecera -->
+<script>
+    function validacion() {
+        valor1 = document.getElementById("nombre").value;
+        var expresion = /^\d{10}$/;
+        valor = document.getElementById("numb").value;
+        elemento = document.getElementById("acepto");
+        pass1 = document.formulario.pass1.value
+        pass2 = document.formulario.pass2.value
+        var fecha = document.getElementById('fecha').value;
+        var interes = document.getElementsByName('intereses');
+
+        if( valor1 == null || valor1.length == 0 || /^\s+$/.test(valor1) ) {
+            alert("Es obligatorio poner tu nombre");
+            return false;
+        }
+        else if(!isNaN(fecha)){
+      alert('Debe elegir una fecha');
+      return false;
+    }
+
+        else if (isNaN(valor) || !expresion.test(valor)){
+            alert("Debe ingresar un numero de telefono con 10 digitos max.");
+            return false;
+        }
+
+        else if(!document.querySelector('input[name="interes"]:checked')) {
+             alert("Seleccione un campo de interes");
+             hasError = false;
+            }
+
+        else if (pass1 == pass2 || (clave1=="")){
+        } else {
+            alert("La contraseña no coincide, intentelo nuevamente");
+            return false;
+        }
+            
+         if(!elemento.checked) {
+            alert("Debe aceptar el envio de los datos");
+            return false;
+        }
+        
+         else if (confirm("Si la informacion es correcta dar clic en aceptar de lo contrario cancelar")) {
+            alert("El formulario a sido enviado");
+        } else {
+            return false;
+        }
+            return true;
+        }
+        
+</script>
+    <body> <!-- Aquí empieza el cuerpo -->
+        <h1> Formulario (HTML5 y Javascript)</h1>
+
+        <form name="formulario" id="formu" action="" onsubmit="return validacion()"> <!-- Formulario -->
+            <fieldset> 
+                     <p>Nombre <input type="text" name="nom" id="nombre" minlength="3" placeholder="Nombre"></p>
+
+                     <p>Apellido <input type="text" name="ape" id="apellido" minlength="3" placeholder="Primer apellido" required> </p>
+                    
+                     <p>Género:
+                     <select id="genero" name="Genero" required>
+                        <option value="1">Masculino</option>
+                        <option value="2">Femenino</option>
+                        <option value="3">Prefiero no decir</option>
+                        <option value="=" selected>------------</option>
+                     </select>
+                     </p>
+                    
+                     <p>Fecha de nacimiento
+                     <input type="date" name="Fecha" id="fecha" max="2021-30-2" required> </p>
+                     
+                     <p>Selecciona tu edad
+                     <input type="range" min="18" max="60" value="" class="slider" id="miedad" name="eda" >
+                     <p>Edad:<span id="valor"></span></p></p>
+                         <script>
+                            var slider = document.getElementById("miedad");
+                            var output = document.getElementById("valor");
+                              output.innerHTML = slider.value;
+                              slider.oninput = function() {
+                              output.innerHTML = this.value;
+                              }
+                         </script>
+
+                     <p>Dirección email
+                     <input name="mail" id="email" placeholder="user@example.com" required>
+                     <span id="emailOK"></span></p>
+                     <script>
+                         document.getElementById('email').addEventListener('input', function() {
+                             campo = event.target;
+                             valido = document.getElementById('emailOK');
+        
+                             emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+                              if (emailRegex.test(campo.value)) {
+                                  valido.innerText = "válida";
+                                } else {
+                                    valido.innerText = "incorrecta";
+                                }
+                            });
+                     </script>
+
+                     <p>Teléfono
+                     <input type="tel" name="telefono" id="numb" placeholder="Num. teléfono 10 dig"></p>
+
+                     <p>Selecciona tu interés:</p><r>
+                     <input type="radio" name="interes" value="P"> Películas<br>
+                     <input type="radio"  name="interes" value="D"> Deportes<br>
+                     <input type="radio"  name="interes" value="V"> Videojuegos<br>
+                     <input type="radio" name="interes" value="L"> Leer <br>
+                    </p>
+                       
+                     <p>Nombre de usuario
+                     <input type="text" name="usuario" id="nombre.usuario" placeholder="Nombre de usuario" required pattern="[A-Za-z0-9]{5,40}" 
+                     title="Letras y números. Tamaño mínimo: 5. Tamaño máximo: 40" required></p>
+
+                     <p>Contraseña
+                     <input type="password" name="pass1" id="pass1" placeholder="Ingrese contraseña"  maxlength="20" pattern="(?=.*\d)(?=.*[a-z]).{6,}" 
+                     tittle="Letras y números. Tamaño mínimo: 6. Tamaño máximo: 20"required></p>
+
+                     <p>Repetir contraseña
+                     <input type="password" name="pass2" id="pass2" placeholder="Confirmar contraseña"  maxlength="20" 
+                     pattern="(?=.*\d)(?=.*[a-z]).{6,}"required></p>
+                    
+                    </fieldset>
+
+
+                     <p><input type='checkbox' value='SI' id='acepto'/>Acepto el envió de mis datos</p>
+                     <br>
+            <button type="submit" class="btn btn-outline-success">Enviar formulario</button>
+
+        </form>
+
+    </body>
+</html>
